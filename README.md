@@ -4,10 +4,10 @@ Een installeerbare web-app (PWA) om tijdens een bezoek aan dierenpark **Plancken
 
 ## Wat doet het?
 
-- Druk op **Nieuwe Zoektocht** → er worden **9 willekeurige dieren** gekozen uit de Planckendael-dierenlijst.
-- De dieren staan in een **fotogrid**. Klik op een dier om het **fullscreen** te bekijken met naam, Latijnse naam en een leuk weetje.
-- Vind je het dier in het park? Druk op de groene knop **Dier gevonden** en **maak een foto** met de camera. De foto wordt in de app bewaard.
-- Voltooi je de volledige reeks van 9 dieren? Dan verdien je een **beloning** (badge + confetti + oplopende rangen). 🏆
+- Op het **home-scherm** volg je een **voortgangspad**: de 61 Planckendael-dieren zijn verdeeld over opeenvolgende zoektochten van **9 dieren** (elk dier komt maar **één keer** in het hele traject voor; de laatste zoektocht heeft er 7). Aan het einde van het pad ligt een **jungle vol dieren**.
+- Start een zoektocht → de 9 dieren staan in een **fotogrid**. Klik op een dier om het **fullscreen** te bekijken met naam, Latijnse naam en een leuk weetje.
+- Vind je het dier in het park? Druk op de groene knop **Dier gevonden** en **maak een foto** met de camera. De foto wordt in de app bewaard. (Vergissing? Zet het dier terug op *niet-gevonden*.)
+- Voltooi je een zoektocht? Dan doet een **dansend dier** een dansje en juicht: *"Goed gedaan, je bent een echte speurneus!"* 🎉 Voltooi je het hele traject, dan bereik je de **jungle vol dieren**. 🌴
 
 ## Volledig offline op je gsm (aanbevolen) 📱
 

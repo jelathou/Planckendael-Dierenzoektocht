@@ -25,26 +25,23 @@
   </header>
 
   <main class="app-main">
-    <!-- Startscherm -->
-    <section id="startScreen" class="screen start-screen">
-      <div class="hero">
-        <div class="hero-emoji">🦊🐘🦩</div>
-        <h2>Klaar voor de zoektocht?</h2>
-        <p>Je krijgt <strong>9 willekeurige dieren</strong> die je in Planckendael moet vinden. Vind je er eentje? Maak een foto en verzamel ze allemaal!</p>
-        <button id="newQuestBtn" class="btn btn-primary btn-lg">🎲 Nieuwe Zoektocht</button>
-        <div id="resumeRow" class="resume-row" hidden>
-          <button id="resumeBtn" class="btn btn-ghost">▶️ Verder met huidige zoektocht</button>
-        </div>
-        <div class="stats-row" id="statsRow" hidden>
-          <div class="stat">
-            <span class="stat-num" id="statCompleted">0</span>
-            <span class="stat-label">voltooid</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" id="statPhotos">0</span>
-            <span class="stat-label">foto's</span>
-          </div>
-        </div>
+    <!-- Home / voortgang -->
+    <section id="startScreen" class="screen home-screen">
+      <div class="home-intro">
+        <h2>Jouw speurtocht 🔍</h2>
+        <p class="home-sub">Volg het pad en verzamel alle dieren. Op het einde wacht een jungle vol dieren!</p>
+      </div>
+
+      <div class="overall-progress">
+        <div class="overall-bar"><div class="overall-fill" id="overallFill"></div></div>
+        <div class="overall-label"><strong id="overallFound">0</strong> / <span id="overallTotal">61</span> dieren gevonden · 📸 <span id="homePhotos">0</span> foto's</div>
+      </div>
+
+      <div class="journey" id="journey"></div>
+
+      <div class="home-actions">
+        <button id="newQuestBtn" class="btn btn-primary btn-lg">🔍 Start zoektocht</button>
+        <button id="resetJourneyBtn" class="btn btn-ghost" hidden>↺ Traject opnieuw beginnen</button>
       </div>
     </section>
 
@@ -98,16 +95,30 @@
     <input id="fileFallback" type="file" accept="image/*" capture="environment" hidden />
   </div>
 
-  <!-- Beloning -->
+  <!-- Beloning: dansend dier -->
   <div id="rewardModal" class="modal reward-modal" hidden>
     <canvas id="confettiCanvas" class="confetti"></canvas>
     <div class="reward-content">
-      <div class="reward-badge">🏆</div>
-      <h2>Gefeliciteerd!</h2>
-      <p>Je hebt alle <strong>9 dieren</strong> gevonden en gefotografeerd!</p>
+      <div class="speech-bubble" id="speechBubble">Goed gedaan, je bent een echte speurneus!</div>
+      <div class="dancer" id="dancer">🐵</div>
+      <div class="dance-floor"></div>
+      <h2 id="rewardTitle">Zoektocht voltooid!</h2>
       <p class="reward-rank" id="rewardRank"></p>
-      <button id="rewardClose" class="btn btn-primary btn-lg">🎉 Super!</button>
-      <button id="rewardNew" class="btn btn-ghost">Nieuwe zoektocht starten</button>
+      <p class="reward-progress" id="rewardProgress"></p>
+      <button id="rewardClose" class="btn btn-primary btn-lg">Verder speuren 🔍</button>
+    </div>
+  </div>
+
+  <!-- Einde: jungle vol dieren -->
+  <div id="jungleModal" class="modal jungle-modal" hidden>
+    <canvas id="jungleConfetti" class="confetti"></canvas>
+    <div class="jungle-scene" id="jungleScene"></div>
+    <div class="jungle-content">
+      <div class="dancer" id="jungleDancer">🦧</div>
+      <h2>🌴 Je bereikte de jungle! 🌴</h2>
+      <p>Je vond alle <strong id="jungleTotal">61</strong> dieren van Planckendael. Wat een super-speurneus! 🏆</p>
+      <button id="jungleClose" class="btn btn-primary btn-lg">🎉 Joepie!</button>
+      <button id="jungleReset" class="btn btn-ghost">Nieuw traject starten</button>
     </div>
   </div>
 

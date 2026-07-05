@@ -2,13 +2,14 @@
 (() => {
   'use strict';
 
-  const QUEST_SIZE = 9;
-  const LS_QUEST = 'pdz_quest';
+  const CHUNK_SIZE = 9;
+  const LS_JOURNEY = 'pdz_journey';
   const LS_STATS = 'pdz_stats';
 
   // ---- State ----
   let animals = [];           // volledige dierenlijst
-  let quest = null;           // { ids:[], found:{id:true}, startedAt }
+  let journey = null;         // { order:[ids], found:{id:true}, chunk:0 } — heel traject, elk dier één keer
+  let viewChunk = 0;          // welk segment nu in het grid getoond wordt
   let animalById = {};
   let currentDetailId = null;
   let cameraStream = null;
@@ -18,8 +19,9 @@
   const $ = (id) => document.getElementById(id);
   const el = {
     startScreen: $('startScreen'), questScreen: $('questScreen'),
-    newQuestBtn: $('newQuestBtn'), resumeRow: $('resumeRow'), resumeBtn: $('resumeBtn'),
-    statsRow: $('statsRow'), statCompleted: $('statCompleted'), statPhotos: $('statPhotos'),
+    newQuestBtn: $('newQuestBtn'), resetJourneyBtn: $('resetJourneyBtn'),
+    overallFill: $('overallFill'), overallFound: $('overallFound'), overallTotal: $('overallTotal'),
+    homePhotos: $('homePhotos'), journey: $('journey'),
     grid: $('grid'), backToStart: $('backToStart'),
     questProgressFill: $('questProgressFill'), questCountLabel: $('questCountLabel'),
     progressBadge: $('progressBadge'), progressCount: $('progressCount'), progressTotal: $('progressTotal'),
@@ -30,8 +32,11 @@
     cameraModal: $('cameraModal'), cameraVideo: $('cameraVideo'), cameraCanvas: $('cameraCanvas'),
     cameraShutter: $('cameraShutter'), cameraCancel: $('cameraCancel'), cameraSwitch: $('cameraSwitch'),
     fileFallback: $('fileFallback'),
-    rewardModal: $('rewardModal'), rewardClose: $('rewardClose'), rewardNew: $('rewardNew'),
-    rewardRank: $('rewardRank'), confettiCanvas: $('confettiCanvas'),
+    rewardModal: $('rewardModal'), rewardClose: $('rewardClose'), rewardTitle: $('rewardTitle'),
+    rewardRank: $('rewardRank'), rewardProgress: $('rewardProgress'), confettiCanvas: $('confettiCanvas'),
+    dancer: $('dancer'), speechBubble: $('speechBubble'),
+    jungleModal: $('jungleModal'), jungleScene: $('jungleScene'), jungleClose: $('jungleClose'),
+    jungleReset: $('jungleReset'), jungleTotal: $('jungleTotal'), jungleConfetti: $('jungleConfetti'),
     toast: $('toast'),
   };
 
@@ -103,11 +108,31 @@
   }
   function setStats(s) { localStorage.setItem(LS_STATS, JSON.stringify(s)); }
 
-  // ---- Quest opslag ----
-  function saveQuest() { if (quest) localStorage.setItem(LS_QUEST, JSON.stringify(quest)); }
-  function loadQuest() {
-    try { return JSON.parse(localStorage.getItem(LS_QUEST)); } catch { return null; }
+  // ---- Traject (journey) ----
+  function saveJourney() { if (journey) localStorage.setItem(LS_JOURNEY, JSON.stringify(journey)); }
+  function loadJourney() {
+    try { return JSON.parse(localStorage.getItem(LS_JOURNEY)); } catch { return null; }
   }
+  async function createJourney() {
+    journey = { order: shuffle(animals.map(a => a.id)), found: {}, chunk: 0 };
+    saveJourney();
+    await idbClear();                       // schone lei bij een nieuw traject
+    setStats({ completed: 0, totalPhotos: 0 });
+  }
+  function ensureJourney() {
+    if (!journey) journey = loadJourney();
+    // Als de dierenlijst gewijzigd is, is het oude traject niet meer geldig.
+    if (journey && (!Array.isArray(journey.order) || journey.order.length !== animals.length)) journey = null;
+  }
+
+  function totalChunks() { return journey ? Math.ceil(journey.order.length / CHUNK_SIZE) : 0; }
+  function chunkIds(i) { return journey ? journey.order.slice(i * CHUNK_SIZE, i * CHUNK_SIZE + CHUNK_SIZE) : []; }
+  function chunkOf(id) { const idx = journey ? journey.order.indexOf(id) : -1; return idx < 0 ? -1 : Math.floor(idx / CHUNK_SIZE); }
+  function chunkFoundCount(i) { return chunkIds(i).filter(id => found(id)).length; }
+  function isChunkComplete(i) { const ids = chunkIds(i); return ids.length > 0 && ids.every(id => found(id)); }
+  function totalFound() { return journey ? Object.keys(journey.found).length : 0; }
+  function journeyComplete() { return journey && journey.chunk >= totalChunks(); }
+  function currentIds() { return chunkIds(viewChunk); }
 
   // ---- Helpers ----
   function shuffle(arr) {
@@ -126,8 +151,7 @@
     toast._t = setTimeout(() => { el.toast.hidden = true; }, 2200);
   }
 
-  function found(id) { return !!(quest && quest.found && quest.found[id]); }
-  function foundCount() { return quest ? Object.keys(quest.found || {}).length : 0; }
+  function found(id) { return !!(journey && journey.found && journey.found[id]); }
 
   // ---- Afbeeldingen ----
   // De directe "afbeelding"-URL's uit de dataset zijn onbetrouwbaar, dus we
@@ -211,16 +235,18 @@
   }
 
   function updateProgressUI() {
-    const c = foundCount();
+    const ids = currentIds();
+    const size = ids.length;
+    const c = ids.filter(id => found(id)).length;
     el.progressCount.textContent = c;
-    el.progressTotal.textContent = QUEST_SIZE;
-    el.questCountLabel.textContent = `${c}/${QUEST_SIZE}`;
-    el.questProgressFill.style.width = `${(c / QUEST_SIZE) * 100}%`;
+    el.progressTotal.textContent = size;
+    el.questCountLabel.textContent = `${c}/${size}`;
+    el.questProgressFill.style.width = `${size ? (c / size) * 100 : 0}%`;
   }
 
   function renderGrid() {
     el.grid.innerHTML = '';
-    quest.ids.forEach((id) => {
+    currentIds().forEach((id) => {
       const a = animalById[id];
       if (!a) return;
       const tile = document.createElement('div');
@@ -267,21 +293,28 @@
     currentDetailId = null;
   }
 
-  // ---- Nieuwe zoektocht ----
-  async function newQuest() {
-    if (animals.length === 0) { toast('Dierenlijst nog niet geladen…'); return; }
-    const pick = shuffle(animals).slice(0, Math.min(QUEST_SIZE, animals.length));
-    quest = { ids: pick.map(a => a.id), found: {}, startedAt: Date.now() };
-    await idbClear();
-    saveQuest();
+  // ---- Zoektocht (segment van het traject) ----
+  function openChunk(i) {
+    if (i < 0 || i >= totalChunks()) return;
+    viewChunk = i;
     showScreen('quest');
     renderGrid();
   }
 
-  function resumeQuest() {
-    if (!quest) return;
-    showScreen('quest');
-    renderGrid();
+  // De home-knop: open het actieve segment, of de jungle als alles gevonden is.
+  function startActiveQuest() {
+    if (!journey) return;
+    if (journeyComplete()) { showJungle(); return; }
+    openChunk(journey.chunk);
+  }
+
+  async function resetJourney() {
+    if (!window.confirm('Het hele traject opnieuw beginnen? Al je gevonden dieren en foto’s worden gewist.')) return;
+    await createJourney();
+    viewChunk = 0;
+    showScreen('start');
+    refreshHome();
+    toast('Nieuw traject gestart 🔍');
   }
 
   // ---- Camera ----
@@ -369,8 +402,8 @@
     if (!id) return;
     await idbSet('photo_' + id, dataUrl);
     const wasFound = found(id);
-    quest.found[id] = true;
-    saveQuest();
+    journey.found[id] = true;
+    saveJourney();
 
     // stats: foto's tellen
     if (!wasFound) {
@@ -388,8 +421,10 @@
     renderGrid();
     toast(wasFound ? 'Foto vervangen 📸' : 'Dier gevonden! 🎉');
 
-    if (foundCount() >= QUEST_SIZE) {
-      setTimeout(() => { closeDetail(); showReward(); }, 700);
+    // Voltooide je hiermee het actieve segment?
+    const ci = chunkOf(id);
+    if (ci === journey.chunk && isChunkComplete(ci)) {
+      setTimeout(() => { closeDetail(); completeChunk(ci); }, 700);
     }
   }
 
@@ -398,8 +433,8 @@
     const id = currentDetailId;
     if (!id || !found(id)) return;
     if (!window.confirm('Dit dier terugzetten als niet-gevonden? De foto die je ervan maakte, wordt verwijderd.')) return;
-    delete quest.found[id];
-    saveQuest();
+    delete journey.found[id];
+    saveJourney();
     await idbDelete('photo_' + id);
     const s = getStats();
     if (s.totalPhotos > 0) { s.totalPhotos -= 1; setStats(s); }
@@ -412,25 +447,67 @@
   }
 
   // ---- Beloning ----
-  function rankFor(completed) {
-    if (completed >= 10) return '🌟 Legendarische Ontdekkingsreiziger';
-    if (completed >= 5) return '🥇 Meester-Speurder';
-    if (completed >= 3) return '🥈 Ervaren Dierenspotter';
-    if (completed >= 2) return '🥉 Junior Bioloog';
-    return '🔰 Eerste Zoektocht Voltooid!';
+  const DANCERS = ['🐵', '🦧', '🦜', '🐘', '🦩', '🦊', '🐨', '🦥', '🦦', '🦁', '🐯', '🐼'];
+
+  function rankFor(done, total) {
+    const ratio = total ? done / total : 0;
+    if (done >= total) return '🌟 Legendarische Jungle-Ontdekker';
+    if (ratio >= 0.75) return '🥇 Meester-Speurneus';
+    if (ratio >= 0.5) return '🥈 Ervaren Dierenspotter';
+    if (ratio >= 0.25) return '🥉 Junior Bioloog';
+    return '🔰 Speurneus in Opleiding';
   }
 
-  function showReward() {
+  // Segment voltooid: schuif het actieve segment op en toon de dans-animatie.
+  function completeChunk(i) {
+    journey.chunk = i + 1;
+    saveJourney();
     const s = getStats();
     s.completed = (s.completed || 0) + 1;
     setStats(s);
-    el.rewardRank.textContent = rankFor(s.completed);
-    el.rewardModal.hidden = false;
-    launchConfetti();
+    showReward(journeyComplete());
   }
 
-  function launchConfetti() {
-    const canvas = el.confettiCanvas;
+  function showReward(isFinal) {
+    el.dancer.textContent = DANCERS[(Math.random() * DANCERS.length) | 0];
+    el.speechBubble.textContent = 'Goed gedaan, je bent een echte speurneus!';
+    const done = journey.chunk;           // aantal voltooide segmenten
+    const total = totalChunks();
+    el.rewardTitle.textContent = isFinal ? 'Laatste zoektocht voltooid! 🌴' : 'Zoektocht voltooid!';
+    el.rewardRank.textContent = rankFor(done, total);
+    el.rewardProgress.textContent = isFinal
+      ? `Je vond alle ${animals.length} dieren van Planckendael!`
+      : `Zoektocht ${done} van ${total} klaar · ${totalFound()}/${animals.length} dieren gevonden`;
+    el.rewardClose.textContent = isFinal ? 'Naar de jungle 🌴' : 'Verder speuren 🔍';
+    el.rewardModal.dataset.final = isFinal ? '1' : '';
+    el.rewardModal.hidden = false;
+    launchConfetti(el.confettiCanvas);
+  }
+
+  // ---- Jungle-eindscherm ----
+  function buildJungleScene() {
+    const emojis = ['🐒', '🦧', '🦁', '🐘', '🦒', '🦓', '🦩', '🦜', '🐍', '🦥', '🦦', '🐆', '🦛', '🦏', '🐅', '🦚', '🌴', '🌿', '🍃', '🐢', '🦇', '🦋'];
+    const scene = el.jungleScene;
+    scene.innerHTML = '';
+    for (let i = 0; i < 36; i++) {
+      const s = document.createElement('span');
+      s.textContent = emojis[(Math.random() * emojis.length) | 0];
+      s.style.left = (Math.random() * 94) + '%';
+      s.style.top = (Math.random() * 94) + '%';
+      s.style.fontSize = (20 + Math.random() * 26) + 'px';
+      s.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+      scene.appendChild(s);
+    }
+  }
+
+  function showJungle() {
+    el.jungleTotal.textContent = animals.length;
+    buildJungleScene();
+    el.jungleModal.hidden = false;
+    launchConfetti(el.jungleConfetti);
+  }
+
+  function launchConfetti(canvas) {
     const ctx = canvas.getContext('2d');
     const dpr = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * dpr;
@@ -457,22 +534,62 @@
         ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.6);
         ctx.restore();
       });
-      if (t < 5000 && !el.rewardModal.hidden) requestAnimationFrame(frame);
+      if (t < 5000) requestAnimationFrame(frame);
       else ctx.clearRect(0, 0, W, H);
     }
     requestAnimationFrame(frame);
   }
 
-  // ---- Startscherm state ----
-  async function refreshStartScreen() {
-    quest = loadQuest();
-    const hasActive = quest && quest.ids && foundCount() < QUEST_SIZE && quest.ids.length === QUEST_SIZE;
-    el.resumeRow.hidden = !hasActive;
-    const s = getStats();
-    const photos = await idbCount();
-    el.statCompleted.textContent = s.completed || 0;
-    el.statPhotos.textContent = s.totalPhotos || photos || 0;
-    el.statsRow.hidden = !((s.completed || 0) > 0 || (s.totalPhotos || 0) > 0);
+  // ---- Home / voortgang ----
+  function refreshHome() {
+    ensureJourney();
+    const total = animals.length;
+    const nFound = totalFound();
+    el.overallTotal.textContent = total;
+    el.overallFound.textContent = nFound;
+    el.overallFill.style.width = total ? `${(nFound / total) * 100}%` : '0%';
+    el.homePhotos.textContent = getStats().totalPhotos || 0;
+    renderJourneyPath();
+
+    if (journeyComplete()) {
+      el.newQuestBtn.textContent = '🌴 Bekijk de jungle';
+    } else {
+      const c = journey ? journey.chunk : 0;
+      const partial = journey && chunkFoundCount(c) > 0;
+      el.newQuestBtn.textContent = partial ? `▶️ Verder met zoektocht ${c + 1}` : `🔍 Start zoektocht ${c + 1}`;
+    }
+    el.resetJourneyBtn.hidden = !(nFound > 0 || (journey && journey.chunk > 0));
+  }
+
+  function renderJourneyPath() {
+    const jn = el.journey;
+    jn.innerHTML = '';
+    if (!journey) return;
+    const tc = totalChunks();
+    for (let i = 0; i < tc; i++) {
+      const ids = chunkIds(i);
+      const fc = chunkFoundCount(i);
+      const done = fc === ids.length;
+      const current = i === journey.chunk;
+      const locked = i > journey.chunk;
+      const stop = document.createElement('div');
+      stop.className = 'stop' + (done ? ' done' : '') + (current ? ' current' : '') + (locked ? ' locked' : '');
+      stop.innerHTML =
+        `<div class="stop-node">${done ? '✓' : (i + 1)}</div>` +
+        `<div class="stop-info"><span class="stop-title">Zoektocht ${i + 1}</span>` +
+        `<span class="stop-meta">${fc}/${ids.length} gevonden</span></div>`;
+      if (!locked) stop.addEventListener('click', () => openChunk(i));
+      jn.appendChild(stop);
+    }
+    // Eindpunt: de jungle
+    const reached = journeyComplete();
+    const jstop = document.createElement('div');
+    jstop.className = 'stop jungle-stop' + (reached ? ' reached' : ' locked');
+    jstop.innerHTML =
+      `<div class="jungle-node">${reached ? '🌴' : '🔒'}</div>` +
+      `<span class="stop-title">${reached ? 'Jungle bereikt!' : 'Jungle vol dieren'}</span>`;
+    if (reached) jstop.addEventListener('click', showJungle);
+    jn.appendChild(jstop);
   }
 
   // ---- Init ----
@@ -491,9 +608,9 @@
   }
 
   function bindEvents() {
-    el.newQuestBtn.addEventListener('click', newQuest);
-    el.resumeBtn.addEventListener('click', resumeQuest);
-    el.backToStart.addEventListener('click', () => { showScreen('start'); refreshStartScreen(); });
+    el.newQuestBtn.addEventListener('click', startActiveQuest);
+    el.resetJourneyBtn.addEventListener('click', resetJourney);
+    el.backToStart.addEventListener('click', () => { showScreen('start'); refreshHome(); });
     el.detailClose.addEventListener('click', closeDetail);
     el.detailModal.addEventListener('click', (e) => { if (e.target === el.detailModal) closeDetail(); });
     el.foundBtn.addEventListener('click', startCamera);
@@ -502,8 +619,14 @@
     el.cameraCancel.addEventListener('click', stopCamera);
     el.cameraSwitch.addEventListener('click', switchCamera);
     el.fileFallback.addEventListener('change', onFileFallback);
-    el.rewardClose.addEventListener('click', () => { el.rewardModal.hidden = true; showScreen('start'); refreshStartScreen(); });
-    el.rewardNew.addEventListener('click', () => { el.rewardModal.hidden = true; newQuest(); });
+    el.rewardClose.addEventListener('click', () => {
+      const isFinal = el.rewardModal.dataset.final === '1';
+      el.rewardModal.hidden = true;
+      if (isFinal) { showJungle(); }
+      else { showScreen('start'); refreshHome(); }
+    });
+    el.jungleClose.addEventListener('click', () => { el.jungleModal.hidden = true; showScreen('start'); refreshHome(); });
+    el.jungleReset.addEventListener('click', () => { el.jungleModal.hidden = true; resetJourney(); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (!el.cameraModal.hidden) stopCamera();
@@ -525,7 +648,10 @@
     bindEvents();
     registerServiceWorker();
     await loadAnimals();
-    await refreshStartScreen();
+    ensureJourney();
+    if (!journey && animals.length) await createJourney();
+    viewChunk = journey ? journey.chunk : 0;
+    refreshHome();
     showScreen('start');
   }
 

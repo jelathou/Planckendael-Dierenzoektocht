@@ -225,4 +225,64 @@ body { min-height: 100vh; }
 }
 @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
+/* ===== Home / voortgangspad ===== */
+.home-screen { padding-bottom: 32px; }
+.home-intro { text-align: center; margin: 4px 0 14px; }
+.home-intro h2 { margin: 0 0 4px; font-size: 22px; }
+.home-sub { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+.overall-progress { background: var(--card); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); margin-bottom: 20px; }
+.overall-bar { height: 12px; background: #e2e8e3; border-radius: 999px; overflow: hidden; }
+.overall-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green-light), var(--found)); transition: width .5s ease; }
+.overall-label { margin-top: 8px; text-align: center; font-size: 13px; color: var(--green-dark); }
+
+.journey { position: relative; display: flex; flex-direction: column; gap: 22px; padding: 14px 0 4px; }
+.journey::before { content: ""; position: absolute; top: 24px; bottom: 70px; left: 50%; border-left: 3px dashed #c4d3c7; transform: translateX(-50%); z-index: 0; }
+
+.stop { position: relative; z-index: 1; width: 62%; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.stop:nth-child(odd) { align-self: flex-start; }
+.stop:nth-child(even) { align-self: flex-end; flex-direction: row-reverse; text-align: right; }
+.stop-node { width: 58px; height: 58px; border-radius: 50%; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #fff; background: #b9c6bc; box-shadow: var(--shadow); border: 3px solid #fff; }
+.stop.done .stop-node { background: var(--found); }
+.stop.current .stop-node { background: var(--accent); color: #3a2a00; animation: nodePulse 1.5s ease-in-out infinite; }
+.stop.locked { opacity: .5; cursor: default; }
+.stop-info { display: flex; flex-direction: column; }
+.stop-title { font-weight: 700; font-size: 15px; }
+.stop-meta { font-size: 12px; color: var(--muted); }
+.stop.current .stop-node::after { content: "🔍"; position: absolute; top: -22px; font-size: 22px; animation: bob 1.2s ease-in-out infinite; }
+@keyframes nodePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,178,0,.5); } 50% { box-shadow: 0 0 0 12px rgba(255,178,0,0); } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+.jungle-stop { align-self: center !important; flex-direction: column !important; text-align: center; width: auto; gap: 6px; cursor: pointer; }
+.jungle-node { width: 100px; height: 100px; border-radius: 50%; font-size: 44px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 38%, #37c06a, #12602f); border: 4px solid #fff; box-shadow: var(--shadow); }
+.jungle-stop.locked .jungle-node { filter: grayscale(.65) brightness(.8); }
+.jungle-stop.reached .jungle-node { animation: nodePulse 1.6s ease-in-out infinite; }
+.jungle-stop .stop-title { font-weight: 800; font-size: 15px; }
+
+/* ===== Dansend dier (beloning) ===== */
+.dancer { font-size: 82px; display: inline-block; transform-origin: bottom center; animation: dance .8s ease-in-out infinite; }
+@keyframes dance {
+  0%   { transform: rotate(-12deg) translateY(0) scale(1); }
+  25%  { transform: rotate(10deg) translateY(-16px) scale(1.06); }
+  50%  { transform: rotate(-8deg) translateY(0) scale(1); }
+  75%  { transform: rotate(12deg) translateY(-12px) scale(1.06); }
+  100% { transform: rotate(-12deg) translateY(0) scale(1); }
+}
+.dance-floor { width: 110px; height: 14px; margin: 0 auto 8px; border-radius: 50%; background: rgba(0,0,0,.12); animation: danceFloor .8s ease-in-out infinite; }
+@keyframes danceFloor { 0%,50%,100% { transform: scaleX(1); opacity: .5; } 25%,75% { transform: scaleX(.65); opacity: .3; } }
+.speech-bubble { position: relative; background: var(--accent); color: #3a2a00; font-weight: 700; padding: 12px 16px; border-radius: 16px; margin: 0 auto 10px; display: inline-block; max-width: 280px; line-height: 1.35; animation: bubblePop .45s ease both; }
+.speech-bubble::after { content: ""; position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); border: 9px solid transparent; border-top-color: var(--accent); border-bottom: 0; }
+@keyframes bubblePop { 0% { transform: scale(0); } 70% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.reward-progress { font-size: 14px; color: var(--muted) !important; }
+
+/* ===== Jungle-eindscherm ===== */
+.jungle-modal { background: linear-gradient(180deg, #0b3d1e, #061f0f); }
+.jungle-scene { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.jungle-scene span { position: absolute; opacity: .9; will-change: transform; animation: sway 3s ease-in-out infinite; }
+@keyframes sway { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-7px) rotate(5deg); } }
+.jungle-content { position: relative; z-index: 2; background: var(--card); border-radius: 22px; padding: 26px 24px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 12px 44px rgba(0,0,0,.6); }
+.jungle-content h2 { margin: 6px 0 8px; color: var(--green); font-size: 24px; }
+.jungle-content p { color: var(--muted); line-height: 1.5; margin: 0 0 16px; }
+.jungle-content .btn { margin-top: 6px; }
+
 [hidden] { display: none !important; }
