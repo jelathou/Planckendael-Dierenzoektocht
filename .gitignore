@@ -1,0 +1,10 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Lokale dev-tooling (niet nodig in de repo)
+.claude/
+
+# Node (indien later toegevoegd)
+node_modules/

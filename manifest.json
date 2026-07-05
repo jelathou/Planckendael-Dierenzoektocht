@@ -1,0 +1,13 @@
+{
+  "name": "Planckendael Dierenzoektocht",
+  "short_name": "Dierenzoektocht",
+  "description": "Zoek en fotografeer 15 dieren in Planckendael.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f6f2",
+  "theme_color": "#1b7a3d",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

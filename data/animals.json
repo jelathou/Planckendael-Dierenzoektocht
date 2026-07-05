@@ -1,0 +1,490 @@
+[
+  {
+    "id": "bonobo",
+    "naam": "Bonobo",
+    "latijn": "Pan paniscus",
+    "weetje": "Bonobo's lossen ruzies vaak op door te knuffelen in plaats van te vechten. Planckendael speelt een belangrijke rol in het internationale fokprogramma voor deze bedreigde apensoort.",
+    "wiki": "Bonobo",
+    "afbeelding": "img/bonobo.jpg"
+  },
+  {
+    "id": "aziatische-olifant",
+    "naam": "Aziatische olifant",
+    "latijn": "Elephas maximus",
+    "weetje": "In de Aziatische olifantentempel van Planckendael leeft een kudde vrouwtjesolifanten samen met een volwassen stier. Olifanten kunnen elkaar op grote afstand horen door met hun voeten trillingen in de grond te voelen.",
+    "wiki": "Asian elephant",
+    "afbeelding": "img/aziatische-olifant.jpg"
+  },
+  {
+    "id": "indische-neushoorn",
+    "naam": "Indische neushoorn",
+    "latijn": "Rhinoceros unicornis",
+    "weetje": "De Indische neushoorn heeft een huid vol plooien die lijkt op een harnas. In Planckendael zijn al meerdere kalfjes van deze bedreigde soort geboren.",
+    "wiki": "Indian rhinoceros",
+    "afbeelding": "img/indische-neushoorn.jpg"
+  },
+  {
+    "id": "indische-leeuw",
+    "naam": "Indische leeuw",
+    "latijn": "Panthera leo persica",
+    "weetje": "Er leven nog maar zo'n 350 Indische leeuwen in het wild, allemaal in één natuurgebied in India. Planckendael huisvest een koppel in de Aziëzone en hoopt op welpjes.",
+    "wiki": "Asiatic lion",
+    "afbeelding": "img/indische-leeuw.jpg"
+  },
+  {
+    "id": "sneeuwluipaard",
+    "naam": "Sneeuwluipaard",
+    "latijn": "Panthera uncia",
+    "weetje": "De sneeuwluipaard heeft een extra lange, dikke staart die hij gebruikt als warme sjaal en als evenwicht bij het springen tussen rotsen.",
+    "wiki": "Snow leopard",
+    "afbeelding": "img/sneeuwluipaard.jpg"
+  },
+  {
+    "id": "rode-panda",
+    "naam": "Rode panda",
+    "latijn": "Ailurus fulgens",
+    "weetje": "De rode panda gebruikt zijn dikke, geringde staart als deken tijdens het slapen en als evenwichtsstok in de bomen.",
+    "wiki": "Red panda",
+    "afbeelding": "img/rode-panda.jpg"
+  },
+  {
+    "id": "dwergotter",
+    "naam": "Aziatische dwergotter",
+    "latijn": "Aonyx cinereus",
+    "weetje": "Dit is de kleinste ottersoort ter wereld. Ze gebruiken hun handige pootjes om schelpdieren en kreeftjes open te breken.",
+    "wiki": "Asian small-clawed otter",
+    "afbeelding": "img/dwergotter.jpg"
+  },
+  {
+    "id": "orang-oetan",
+    "naam": "Orang-oetan",
+    "latijn": "Pongo abelii",
+    "weetje": "Orang-oetan betekent letterlijk 'mens van het bos'. In Planckendael leven ze sinds 2022 in een tropische serre samen met witwanggibbons.",
+    "wiki": "Sumatran orangutan",
+    "afbeelding": "img/orang-oetan.jpg"
+  },
+  {
+    "id": "witwanggibbon",
+    "naam": "Witwanggibbon",
+    "latijn": "Nomascus leucogenys",
+    "weetje": "Gibbons zijn echte acrobaten: ze zwaaien met hun lange armen supersnel van tak naar tak, dit heet 'brachiëren'.",
+    "wiki": "Northern white-cheeked gibbon",
+    "afbeelding": "img/witwanggibbon.jpg"
+  },
+  {
+    "id": "geribbelde-neushoornvogel",
+    "naam": "Geribbelde neushoornvogel",
+    "latijn": "Aceros corrugatus",
+    "weetje": "Neushoornvogels hebben een grote, holle snavel met een opvallende verhoging erboven, maar die is verrassend licht van gewicht.",
+    "wiki": "Wrinkled hornbill",
+    "afbeelding": "img/geribbelde-neushoornvogel.jpg"
+  },
+  {
+    "id": "kameel",
+    "naam": "Kameel",
+    "latijn": "Camelus bactrianus",
+    "weetje": "De tweebultige kameel kan grote hoeveelheden vet opslaan in zijn bulten, wat hem helpt om lang zonder eten te overleven.",
+    "wiki": "Bactrian camel",
+    "afbeelding": "img/kameel.jpg"
+  },
+  {
+    "id": "przewalskipaard",
+    "naam": "Przewalskipaard",
+    "latijn": "Equus ferus przewalskii",
+    "weetje": "Het Przewalskipaard is het laatste echt wilde paard ter wereld en was ooit uitgestorven in de natuur, tot fokprogramma's in dierentuinen het weer uitzetten.",
+    "wiki": "Przewalski's horse",
+    "afbeelding": "img/przewalskipaard.jpg"
+  },
+  {
+    "id": "wisent",
+    "naam": "Wisent",
+    "latijn": "Bison bonasus",
+    "weetje": "De wisent, ook Europese bizon genoemd, is het grootste landzoogdier van Europa en was tot vlak na de Eerste Wereldoorlog helemaal uitgestorven in het wild.",
+    "wiki": "Wisent",
+    "afbeelding": "img/wisent.jpg"
+  },
+  {
+    "id": "kordofangiraf",
+    "naam": "Kordofangiraf",
+    "latijn": "Giraffa camelopardalis antiquorum",
+    "weetje": "De Kordofangiraf is een zeldzame ondersoort die vooral nog voorkomt in Congo. In 2026 is er nog een giraffenkalfje geboren in Planckendael.",
+    "wiki": "Kordofan giraffe",
+    "afbeelding": "img/kordofangiraf.jpg"
+  },
+  {
+    "id": "grevyzebra",
+    "naam": "Grévyzebra",
+    "latijn": "Equus grevyi",
+    "weetje": "Grévyzebra's hebben de smalste strepen van alle zebrasoorten en zijn ook de grootste zebra's ter wereld.",
+    "wiki": "Grévy's zebra",
+    "afbeelding": "img/grevyzebra.jpg"
+  },
+  {
+    "id": "jachtluipaard",
+    "naam": "Jachtluipaard",
+    "latijn": "Acinonyx jubatus",
+    "weetje": "De cheetah is het snelste landdier ter wereld en kan in een paar seconden versnellen van 0 naar 100 kilometer per uur.",
+    "wiki": "Cheetah",
+    "afbeelding": "img/jachtluipaard.jpg"
+  },
+  {
+    "id": "berberaap",
+    "naam": "Berberaap",
+    "latijn": "Macaca sylvanus",
+    "weetje": "Berberapen zijn de enige apen die in het wild in Europa voorkomen, namelijk op de rots van Gibraltar. Ze hebben eigenlijk geen staart.",
+    "wiki": "Barbary macaque",
+    "afbeelding": "img/berberaap.jpg"
+  },
+  {
+    "id": "stekelvarken",
+    "naam": "Zuid-Afrikaans stekelvarken",
+    "latijn": "Hystrix africaeaustralis",
+    "weetje": "Als een stekelvarken zich bedreigd voelt, rammelt het met zijn stekels om roofdieren af te schrikken.",
+    "wiki": "Cape porcupine",
+    "afbeelding": "img/stekelvarken.jpg"
+  },
+  {
+    "id": "gevlekte-hyena",
+    "naam": "Gevlekte hyena",
+    "latijn": "Crocuta crocuta",
+    "weetje": "Hyena's hebben een van de sterkste kaken van alle zoogdieren en kunnen zelfs botten vermalen.",
+    "wiki": "Spotted hyena",
+    "afbeelding": "img/gevlekte-hyena.jpg"
+  },
+  {
+    "id": "mhorrgazelle",
+    "naam": "Mhorrgazelle",
+    "latijn": "Nanger dama mhorr",
+    "weetje": "De Mhorrgazelle was op het punt om uit te sterven, maar dankzij fokprogramma's in dierentuinen zoals Planckendael bestaat de ondersoort nog steeds.",
+    "wiki": "Mhorr gazelle",
+    "afbeelding": "img/mhorrgazelle.jpg"
+  },
+  {
+    "id": "zebramangoeste",
+    "naam": "Zebramangoeste",
+    "latijn": "Mungos mungo",
+    "weetje": "Zebramangoesten leven in groepen van soms wel veertig dieren en waarschuwen elkaar luidkeels bij gevaar.",
+    "wiki": "Banded mongoose",
+    "afbeelding": "img/zebramangoeste.jpg"
+  },
+  {
+    "id": "ringstaartmaki",
+    "naam": "Ringstaartmaki",
+    "latijn": "Lemur catta",
+    "weetje": "Ringstaartmaki's komen enkel voor op het eiland Madagaskar en herkennen elkaar aan de zwart-witte ringen op hun lange staart.",
+    "wiki": "Ring-tailed lemur",
+    "afbeelding": "img/ringstaartmaki.jpg"
+  },
+  {
+    "id": "moormaki",
+    "naam": "Moormaki",
+    "latijn": "Eulemur macaco",
+    "weetje": "Bij de moormaki zijn de mannetjes helemaal zwart en de vrouwtjes roodbruin met witte oorpluimen, een groot verschil binnen dezelfde soort.",
+    "wiki": "Black lemur",
+    "afbeelding": "img/moormaki.jpg"
+  },
+  {
+    "id": "secretarisvogel",
+    "naam": "Secretarisvogel",
+    "latijn": "Sagittarius serpentarius",
+    "weetje": "De secretarisvogel jaagt lopend op slangen en doodt ze met snelle, krachtige trappen van zijn lange poten.",
+    "wiki": "Secretarybird",
+    "afbeelding": "img/secretarisvogel.jpg"
+  },
+  {
+    "id": "grijze-reuzenkangoeroe",
+    "naam": "Oostelijke grijze reuzenkangoeroe",
+    "latijn": "Macropus giganteus",
+    "weetje": "Kangoeroes kunnen niet achteruit lopen en springen met hun sterke achterpoten tot negen meter ver in één sprong.",
+    "wiki": "Eastern grey kangaroo",
+    "afbeelding": "img/grijze-reuzenkangoeroe.jpg"
+  },
+  {
+    "id": "moeraswallaby",
+    "naam": "Moeraswallaby",
+    "latijn": "Wallabia bicolor",
+    "weetje": "De moeraswallaby is de enige buideldiersoort met 26 in plaats van 24 chromosomen, een bijzonder weetje voor wetenschappers.",
+    "wiki": "Swamp wallaby",
+    "afbeelding": "img/moeraswallaby.jpg"
+  },
+  {
+    "id": "emoe",
+    "naam": "Emoe",
+    "latijn": "Dromaius novaehollandiae",
+    "weetje": "De emoe is na de struisvogel de grootste vogel ter wereld en kan niet vliegen, maar wel heel hard rennen.",
+    "wiki": "Emu",
+    "afbeelding": "img/emoe.jpg"
+  },
+  {
+    "id": "helmkasuaris",
+    "naam": "Helmkasuaris",
+    "latijn": "Casuarius casuarius",
+    "weetje": "De kasuaris heeft een hoorn op zijn kop, de 'helm', en wordt weleens het gevaarlijkste vogeltje ter wereld genoemd vanwege zijn scherpe klauwen.",
+    "wiki": "Southern cassowary",
+    "afbeelding": "img/helmkasuaris.jpg"
+  },
+  {
+    "id": "koala",
+    "naam": "Koala",
+    "latijn": "Phascolarctos cinereus",
+    "weetje": "Koala's slapen tot 20 uur per dag omdat de eucalyptusbladeren die ze eten heel weinig energie geven.",
+    "wiki": "Koala",
+    "afbeelding": "img/koala.jpg"
+  },
+  {
+    "id": "tasmaanse-duivel",
+    "naam": "Tasmaanse duivel",
+    "latijn": "Sarcophilus harrisii",
+    "weetje": "De Tasmaanse duivel is het grootste vleesetende buideldier ter wereld en kan een angstaanjagend hard gegrom laten horen.",
+    "wiki": "Tasmanian devil",
+    "afbeelding": "img/tasmaanse-duivel.jpg"
+  },
+  {
+    "id": "wapiti",
+    "naam": "Rocky Mountain-wapiti",
+    "latijn": "Cervus canadensis nelsoni",
+    "weetje": "Mannetjeswapiti's hebben een indrukwekkend gewei en laten in de herfst een luid, hoog geloei horen om vrouwtjes te lokken.",
+    "wiki": "Elk",
+    "afbeelding": "img/wapiti.jpg"
+  },
+  {
+    "id": "amerikaanse-bizon",
+    "naam": "Amerikaanse bizon",
+    "latijn": "Bison bison",
+    "weetje": "De Amerikaanse bizon is het nationale zoogdier van de Verenigde Staten en kan ondanks zijn logge lijf toch 55 kilometer per uur lopen.",
+    "wiki": "American bison",
+    "afbeelding": "img/amerikaanse-bizon.jpg"
+  },
+  {
+    "id": "hangbuikzwijn",
+    "naam": "Hangbuikzwijn",
+    "latijn": "Sus scrofa domesticus",
+    "weetje": "Het hangbuikzwijn dankt zijn naam aan zijn buik die bijna tot op de grond hangt door zijn korte pootjes.",
+    "wiki": "Vietnamese pot-bellied pig",
+    "afbeelding": "img/hangbuikzwijn.jpg"
+  },
+  {
+    "id": "goudkopleeuwaapje",
+    "naam": "Goudkopleeuwaapje",
+    "latijn": "Leontopithecus chrysomelas",
+    "weetje": "Dit kleine goudkleurige aapje leeft alleen nog in een klein stukje regenwoud in Brazilië en is ernstig bedreigd.",
+    "wiki": "Golden-headed lion tamarin",
+    "afbeelding": "img/goudkopleeuwaapje.jpg"
+  },
+  {
+    "id": "briluil",
+    "naam": "Briluil",
+    "latijn": "Pulsatrix perspicillata",
+    "weetje": "De briluil heeft witte 'wenkbrauwen' en een donkere band over de ogen die eruitziet als een bril.",
+    "wiki": "Spectacled owl",
+    "afbeelding": "img/briluil.jpg"
+  },
+  {
+    "id": "boshond",
+    "naam": "Boshond",
+    "latijn": "Speothos venaticus",
+    "weetje": "De boshond is een van de zeldzaamste hondachtigen ter wereld en jaagt met de hele familiegroep samen op grote prooien.",
+    "wiki": "Bush dog",
+    "afbeelding": "img/boshond.jpg"
+  },
+  {
+    "id": "capibara",
+    "naam": "Capibara",
+    "latijn": "Hydrochoerus hydrochaeris",
+    "weetje": "De capibara is de grootste knaagdiersoort ter wereld en is dol op zwemmen, met zwemvliezen tussen zijn tenen.",
+    "wiki": "Capybara",
+    "afbeelding": "img/capibara.jpg"
+  },
+  {
+    "id": "mara",
+    "naam": "Mara",
+    "latijn": "Dolichotis patagonum",
+    "weetje": "De mara lijkt een beetje op een haas met lange poten, maar is eigenlijk familie van de cavia.",
+    "wiki": "Mara (mammal)",
+    "afbeelding": "img/mara.jpg"
+  },
+  {
+    "id": "vicuna",
+    "naam": "Vicuña",
+    "latijn": "Vicugna vicugna",
+    "weetje": "De vicuña heeft de fijnste en zachtste wol van alle dieren en leeft hoog in de Andes in Zuid-Amerika.",
+    "wiki": "Vicuña",
+    "afbeelding": "img/vicuna.jpg"
+  },
+  {
+    "id": "humboldtpinguin",
+    "naam": "Humboldtpinguïn",
+    "latijn": "Spheniscus humboldti",
+    "weetje": "Bezoekers kunnen in Planckendael dwars door het pinguïnverblijf wandelen en de vogels van heel dichtbij zien zwemmen.",
+    "wiki": "Humboldt penguin",
+    "afbeelding": "img/humboldtpinguin.jpg"
+  },
+  {
+    "id": "incastern",
+    "naam": "Incastern",
+    "latijn": "Larosterna inca",
+    "weetje": "De Incastern heeft opvallende witte snorharen aan weerszijden van zijn snavel, net een klein sterretje.",
+    "wiki": "Inca tern",
+    "afbeelding": "img/incastern.jpg"
+  },
+  {
+    "id": "chileense-flamingo",
+    "naam": "Chileense flamingo",
+    "latijn": "Phoenicopterus chilensis",
+    "weetje": "Flamingo's zijn roze door de kleurstoffen in de kleine kreeftjes en algen die ze eten.",
+    "wiki": "Chilean flamingo",
+    "afbeelding": "img/chileense-flamingo.jpg"
+  },
+  {
+    "id": "reuzenmiereneter",
+    "naam": "Reuzenmiereneter",
+    "latijn": "Myrmecophaga tridactyla",
+    "weetje": "De reuzenmiereneter heeft geen tanden en gebruikt zijn lange, plakkerige tong om duizenden mieren en termieten per dag op te likken.",
+    "wiki": "Giant anteater",
+    "afbeelding": "img/reuzenmiereneter.jpg"
+  },
+  {
+    "id": "pelikaan",
+    "naam": "Kroeskoppelikaan",
+    "latijn": "Pelecanus crispus",
+    "weetje": "De kroeskoppelikaan heeft een enorme keelzak onder zijn snavel waarmee hij vis uit het water kan scheppen.",
+    "wiki": "Dalmatian pelican",
+    "afbeelding": "img/pelikaan.jpg"
+  },
+  {
+    "id": "monniksgier",
+    "naam": "Monniksgier",
+    "latijn": "Aegypius monachus",
+    "weetje": "De monniksgier is een van de grootste roofvogels van Europa, met een spanwijdte tot bijna drie meter.",
+    "wiki": "Cinereous vulture",
+    "afbeelding": "img/monniksgier.jpg"
+  },
+  {
+    "id": "das",
+    "naam": "Das",
+    "latijn": "Meles meles",
+    "weetje": "Dassen wonen in grote ondergrondse gangenstelsels, burchten genaamd, die soms al generaties lang door dezelfde familie gebruikt worden.",
+    "wiki": "European badger",
+    "afbeelding": "img/das.jpg"
+  },
+  {
+    "id": "heremietibis",
+    "naam": "Heremietibis",
+    "latijn": "Geronticus eremita",
+    "weetje": "De heremietibis was bijna uitgestorven, maar dankzij fokprogramma's in dierentuinen en uitzetprojecten leven er weer wilde populaties in Europa.",
+    "wiki": "Northern bald ibis",
+    "afbeelding": "img/heremietibis.jpg"
+  },
+  {
+    "id": "ooievaar",
+    "naam": "Ooievaar",
+    "latijn": "Ciconia ciconia",
+    "weetje": "Planckendael speelde een grote rol bij de terugkeer van de wilde ooievaar in Vlaanderen: sinds 1990 groeide de populatie van een handvol tot honderden vogels.",
+    "wiki": "White stork",
+    "afbeelding": "img/ooievaar.jpg"
+  },
+  {
+    "id": "geiten",
+    "naam": "Dwerggeit",
+    "latijn": "Capra aegagrus hircus",
+    "weetje": "In de kinderboerderij-zone van Planckendael kunnen kleine dwerggeiten van dichtbij bekeken worden, sommige springen graag op verhogingen.",
+    "wiki": "Domestic goat",
+    "afbeelding": "img/geiten.jpg"
+  },
+  {
+    "id": "kip",
+    "naam": "Kriel(hoen)",
+    "latijn": "Gallus gallus domesticus",
+    "weetje": "Kippen op de kinderboerderij van Planckendael zoeken de hele dag naar zaadjes en insecten door in de grond te scharrelen.",
+    "wiki": "Chicken",
+    "afbeelding": "img/kip.jpg"
+  },
+  {
+    "id": "gevlekte-python",
+    "naam": "Gevlekte python",
+    "latijn": "Antaresia maculosa",
+    "weetje": "Deze python is een van de kleinere pythonsoorten en jaagt vooral 's nachts op kleine knaagdieren en hagedissen.",
+    "wiki": "Antaresia maculosa",
+    "afbeelding": "img/gevlekte-python.jpg"
+  },
+  {
+    "id": "blauwtongskink",
+    "naam": "Blauwtongskink",
+    "latijn": "Tiliqua scincoides",
+    "weetje": "Als een blauwtongskink zich bedreigd voelt, sperrt hij zijn mond open en toont hij zijn opvallend felblauwe tong om vijanden af te schrikken.",
+    "wiki": "Blue-tongued skink",
+    "afbeelding": "img/blauwtongskink.jpg"
+  },
+  {
+    "id": "stekelstaartvaraan",
+    "naam": "Stekelstaartvaraan",
+    "latijn": "Varanus acanthurus",
+    "weetje": "De stekelstaartvaraan is een kleine, snelle hagedis met een stekelige staart die hij gebruikt om zich te verdedigen.",
+    "wiki": "Varanus acanthurus",
+    "afbeelding": "img/stekelstaartvaraan.jpg"
+  },
+  {
+    "id": "blauwe-pauw",
+    "naam": "Blauwe pauw",
+    "latijn": "Pavo cristatus",
+    "weetje": "Alleen de mannetjespauw heeft de indrukwekkende, kleurrijke staartveren die hij als een waaier kan spreiden om vrouwtjes te imponeren.",
+    "wiki": "Indian peafowl",
+    "afbeelding": "img/blauwe-pauw.jpg"
+  },
+  {
+    "id": "goudfazant",
+    "naam": "Goudfazant",
+    "latijn": "Chrysolophus pictus",
+    "weetje": "De goudfazant heeft een van de meest kleurrijke verenkleden van alle vogels, met een goudgele kuif en een felrode buik.",
+    "wiki": "Golden pheasant",
+    "afbeelding": "img/goudfazant.jpg"
+  },
+  {
+    "id": "struisvogel",
+    "naam": "Struisvogel",
+    "latijn": "Struthio camelus",
+    "weetje": "De struisvogel is de grootste en zwaarste vogel ter wereld en kan tot 70 kilometer per uur rennen op zijn twee sterke poten.",
+    "wiki": "Common ostrich",
+    "afbeelding": "img/struisvogel.jpg"
+  },
+  {
+    "id": "jufferkraanvogel",
+    "naam": "Jufferkraanvogel",
+    "latijn": "Anthropoides virgo",
+    "weetje": "De jufferkraanvogel is de kleinste kraanvogelsoort ter wereld en trekt jaarlijks over de Himalaya, een van de hoogste vogeltrektochten die er bestaan.",
+    "wiki": "Demoiselle crane",
+    "afbeelding": "img/jufferkraanvogel.jpg"
+  },
+  {
+    "id": "zwarthalszwaan",
+    "naam": "Zwarthalszwaan",
+    "latijn": "Cygnus melancoryphus",
+    "weetje": "Deze zwaan uit Zuid-Amerika heeft een sneeuwwit lijf met een opvallend zwarte hals en kop.",
+    "wiki": "Black-necked swan",
+    "afbeelding": "img/zwarthalszwaan.jpg"
+  },
+  {
+    "id": "soldatenara",
+    "naam": "Soldatenara",
+    "latijn": "Ara militaris",
+    "weetje": "De soldatenara dankt zijn naam aan zijn groene verenkleed, dat lijkt op een soldatenuniform, en zijn luide roep.",
+    "wiki": "Military macaw",
+    "afbeelding": "img/soldatenara.jpg"
+  },
+  {
+    "id": "karper",
+    "naam": "Karper",
+    "latijn": "Cyprinus carpio",
+    "weetje": "Karpers kunnen wel dertig jaar of ouder worden en leven vaak jarenlang rustig in dezelfde vijver.",
+    "wiki": "Common carp",
+    "afbeelding": "img/karper.jpg"
+  },
+  {
+    "id": "zwarte-grondtak",
+    "naam": "Zwarte grondtak",
+    "latijn": "Aretaon asperrimus",
+    "weetje": "Deze wandelende tak uit Borneo is zo goed vermomd als een stukje boomschors dat roofdieren hem nauwelijks opmerken.",
+    "wiki": "Aretaon asperrimus",
+    "afbeelding": "img/zwarte-grondtak.jpg"
+  }
+]

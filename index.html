@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1b7a3d" />
+  <title>Planckendael Dierenzoektocht</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-logo">🐾</span>
+      <div>
+        <h1>Dierenzoektocht</h1>
+        <p class="brand-sub">Planckendael</p>
+      </div>
+    </div>
+    <div class="progress-badge" id="progressBadge" hidden>
+      <span id="progressCount">0</span>/<span id="progressTotal">9</span>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- Startscherm -->
+    <section id="startScreen" class="screen start-screen">
+      <div class="hero">
+        <div class="hero-emoji">🦊🐘🦩</div>
+        <h2>Klaar voor de zoektocht?</h2>
+        <p>Je krijgt <strong>9 willekeurige dieren</strong> die je in Planckendael moet vinden. Vind je er eentje? Maak een foto en verzamel ze allemaal!</p>
+        <button id="newQuestBtn" class="btn btn-primary btn-lg">🎲 Nieuwe Zoektocht</button>
+        <div id="resumeRow" class="resume-row" hidden>
+          <button id="resumeBtn" class="btn btn-ghost">▶️ Verder met huidige zoektocht</button>
+        </div>
+        <div class="stats-row" id="statsRow" hidden>
+          <div class="stat">
+            <span class="stat-num" id="statCompleted">0</span>
+            <span class="stat-label">voltooid</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="statPhotos">0</span>
+            <span class="stat-label">foto's</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zoektocht / grid -->
+    <section id="questScreen" class="screen" hidden>
+      <div class="quest-bar">
+        <button id="backToStart" class="btn btn-ghost btn-sm">← Menu</button>
+        <div class="quest-progress">
+          <div class="quest-progress-fill" id="questProgressFill"></div>
+        </div>
+        <span class="quest-count" id="questCountLabel">0/9</span>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
+
+  <!-- Fullscreen dier-detail -->
+  <div id="detailModal" class="modal" hidden>
+    <button class="modal-close" id="detailClose" aria-label="Sluiten">✕</button>
+    <div class="detail-content">
+      <div class="detail-photo-wrap">
+        <img id="detailPhoto" class="detail-photo" alt="" />
+        <div id="foundBanner" class="found-banner" hidden>✅ Gevonden!</div>
+      </div>
+      <div class="detail-body">
+        <h2 id="detailName">Dier</h2>
+        <p id="detailLatin" class="latin"></p>
+        <div class="fact">
+          <span class="fact-icon">💡</span>
+          <p id="detailFact"></p>
+        </div>
+        <div id="userPhotoWrap" class="user-photo-wrap" hidden>
+          <p class="user-photo-label">📸 Jouw foto</p>
+          <img id="userPhoto" class="user-photo" alt="Jouw foto" />
+        </div>
+        <button id="foundBtn" class="btn btn-found btn-lg">📷 Dier gevonden</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camera -->
+  <div id="cameraModal" class="camera-modal" hidden>
+    <video id="cameraVideo" class="camera-video" autoplay playsinline muted></video>
+    <canvas id="cameraCanvas" hidden></canvas>
+    <div class="camera-controls">
+      <button id="cameraCancel" class="btn btn-ghost-light">Annuleer</button>
+      <button id="cameraShutter" class="shutter" aria-label="Neem foto"></button>
+      <button id="cameraSwitch" class="btn btn-ghost-light">🔄</button>
+    </div>
+    <input id="fileFallback" type="file" accept="image/*" capture="environment" hidden />
+  </div>
+
+  <!-- Beloning -->
+  <div id="rewardModal" class="modal reward-modal" hidden>
+    <canvas id="confettiCanvas" class="confetti"></canvas>
+    <div class="reward-content">
+      <div class="reward-badge">🏆</div>
+      <h2>Gefeliciteerd!</h2>
+      <p>Je hebt alle <strong>9 dieren</strong> gevonden en gefotografeerd!</p>
+      <p class="reward-rank" id="rewardRank"></p>
+      <button id="rewardClose" class="btn btn-primary btn-lg">🎉 Super!</button>
+      <button id="rewardNew" class="btn btn-ghost">Nieuwe zoektocht starten</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
