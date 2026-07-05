@@ -25,7 +25,7 @@
     progressBadge: $('progressBadge'), progressCount: $('progressCount'), progressTotal: $('progressTotal'),
     detailModal: $('detailModal'), detailClose: $('detailClose'),
     detailPhoto: $('detailPhoto'), detailName: $('detailName'), detailLatin: $('detailLatin'),
-    detailFact: $('detailFact'), foundBtn: $('foundBtn'), foundBanner: $('foundBanner'),
+    detailFact: $('detailFact'), foundBtn: $('foundBtn'), unfindBtn: $('unfindBtn'), foundBanner: $('foundBanner'),
     userPhotoWrap: $('userPhotoWrap'), userPhoto: $('userPhoto'),
     cameraModal: $('cameraModal'), cameraVideo: $('cameraVideo'), cameraCanvas: $('cameraCanvas'),
     cameraShutter: $('cameraShutter'), cameraCancel: $('cameraCancel'), cameraSwitch: $('cameraSwitch'),
@@ -73,6 +73,15 @@
     return new Promise((res, rej) => {
       const tx = db.transaction('photos', 'readwrite');
       tx.objectStore('photos').clear();
+      tx.oncomplete = () => res();
+      tx.onerror = () => rej(tx.error);
+    });
+  }
+  async function idbDelete(key) {
+    const db = await openDB();
+    return new Promise((res, rej) => {
+      const tx = db.transaction('photos', 'readwrite');
+      tx.objectStore('photos').delete(key);
       tx.oncomplete = () => res();
       tx.onerror = () => rej(tx.error);
     });
@@ -240,6 +249,7 @@
     const isFound = found(id);
     el.foundBanner.hidden = !isFound;
     el.foundBtn.textContent = isFound ? '📷 Nieuwe foto maken' : '📷 Dier gevonden';
+    el.unfindBtn.hidden = !isFound;
 
     // eigen foto tonen
     const userImg = await idbGet('photo_' + id);
@@ -374,12 +384,31 @@
     el.userPhotoWrap.hidden = false;
     el.foundBanner.hidden = false;
     el.foundBtn.textContent = '📷 Nieuwe foto maken';
+    el.unfindBtn.hidden = false;
     renderGrid();
     toast(wasFound ? 'Foto vervangen 📸' : 'Dier gevonden! 🎉');
 
     if (foundCount() >= QUEST_SIZE) {
       setTimeout(() => { closeDetail(); showReward(); }, 700);
     }
+  }
+
+  // Zet een gevonden dier terug op "niet gevonden" en verwijder de gemaakte foto.
+  async function unfindAnimal() {
+    const id = currentDetailId;
+    if (!id || !found(id)) return;
+    if (!window.confirm('Dit dier terugzetten als niet-gevonden? De foto die je ervan maakte, wordt verwijderd.')) return;
+    delete quest.found[id];
+    saveQuest();
+    await idbDelete('photo_' + id);
+    const s = getStats();
+    if (s.totalPhotos > 0) { s.totalPhotos -= 1; setStats(s); }
+    el.foundBanner.hidden = true;
+    el.userPhotoWrap.hidden = true;
+    el.foundBtn.textContent = '📷 Dier gevonden';
+    el.unfindBtn.hidden = true;
+    renderGrid();
+    toast('Teruggezet als niet-gevonden');
   }
 
   // ---- Beloning ----
@@ -468,6 +497,7 @@
     el.detailClose.addEventListener('click', closeDetail);
     el.detailModal.addEventListener('click', (e) => { if (e.target === el.detailModal) closeDetail(); });
     el.foundBtn.addEventListener('click', startCamera);
+    el.unfindBtn.addEventListener('click', unfindAnimal);
     el.cameraShutter.addEventListener('click', captureFromVideo);
     el.cameraCancel.addEventListener('click', stopCamera);
     el.cameraSwitch.addEventListener('click', switchCamera);

@@ -1,5 +1,5 @@
 /* Service worker — maakt de Dierenzoektocht volledig offline bruikbaar. */
-const CACHE = 'pdz-cache-v2';
+const CACHE = 'pdz-cache-v3';
 const SHELL = [
   './',
   'index.html',
